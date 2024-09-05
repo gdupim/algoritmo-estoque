@@ -4,22 +4,6 @@
 #include <locale.h>
 #include <windows.h>
 
-/*
->O QUE FAZER:
-*- DECORAÇÃO
-
->FEITO:
-!- SANITIZAÇÃO
-!- INSERÇÃO DE DADOS
-!- CALCULO DE VENDA
-!- COLOCA A LINGUA EM PORTUGUES
-!- CALCULO DE VENDAS
-!- PRODUTO COM MAIOR QUANTIDADE (TOP 3)
-!- PRODUTO COM MENOR QUANTIDADE (TOP 3)
-!- REMOVE OS PRODUTOS
-!- COMENTAR PELO AMOR DE DEUS!!!!!!!!!!!!!!!!!!!!!!
-*/
-
 // função para redimensionar o CMD
 void tamanho_tela(int x, int y)
 {
@@ -78,7 +62,8 @@ int main()
     int menor_vendas = produto_menor_vendas.numero_vendas;
 
     // * PROGRAMA
-
+    system("cls");
+    system("COLOR 0F");
     printf(" +----------------------------------------------------------------------------+\n");
     printf(" |                                                                            |\n");
     printf(" |              Bem-vindo ao SEI (Sistema de Estoque Integrado)!              |\n");
@@ -88,8 +73,11 @@ int main()
     // Menu de opções:
     while (1)
     {
+        Beep(0, 1000);
+        system("cls");
+        system("COLOR 0F");
         // Menu de opções:
-        printf("\n\n\nSelecione dentre as opções abaixo: ");
+        printf("\nSelecione dentre as opções abaixo: ");
         printf("\n1 - Inserção de produtos.");
         printf("\n2 - Remoção de produtos do estoque.");
         printf("\n3 - Alterar dados de produtos.");
@@ -99,7 +87,6 @@ int main()
         printf("\n0 - Sair.");
 
         printf("\n\nDigite a opção abaixo: ");
-        scanf("%d", &op);
 
         //  para não crashar qnd por letra
         while (scanf("%d", &op) != 1)
@@ -127,13 +114,16 @@ int main()
 
         // * INSERIR PRODUTOS
         case 1:
+
+            system("cls");
+            system("COLOR 02");
             // não digite numeros muito altos, a chance do programa quebrar também é alta
             printf("\n>Digite o número de produtos a serem inseridos: ");
-            scanf("%d", &num_produtos);
 
             // enquanto o numero de produtos for menor que zero, ele repetira a pergunta
             while (num_produtos <= 0 && scanf("%d", &num_produtos) != 1)
             {
+                system("cls");
                 printf(">Digite um número de produtos válidos a ser inseridos: ");
                 scanf("%d", &num_produtos);
             }
@@ -141,6 +131,7 @@ int main()
             // itera os produtos
             for (int i = 0; i < num_produtos; i++)
             {
+                system("cls");
                 printf("\n\nDigite as informações do produto %d: ", i + 1);
 
                 // definir as variáveis do struct
@@ -148,7 +139,6 @@ int main()
                 scanf(" %[^\n]", produtos[i].nome);
 
                 printf("\n>Valor de compra: ");
-                scanf("%f", &produtos[i].valor_compra);
 
                 while (scanf("%f", &produtos[i].valor_compra) != 1)
                 {
@@ -159,7 +149,6 @@ int main()
                 }
 
                 printf("\n>Valor de venda: ");
-                scanf("%f", &produtos[i].valor_venda);
 
                 while (scanf("%f", &produtos[i].valor_venda) != 1)
                 {
@@ -170,7 +159,6 @@ int main()
                 }
 
                 printf("\n>Número de vendas: ");
-                scanf("%d", &produtos[i].numero_vendas);
 
                 while (scanf("%d", &produtos[i].numero_vendas) != 1)
                 {
@@ -181,7 +169,6 @@ int main()
                 }
 
                 printf("\n>Quantidade no estoque: ");
-                scanf("%d", &produtos[i].quantidade_estoque);
 
                 while (scanf("%d", &produtos[i].quantidade_estoque) != 1)
                 {
@@ -215,11 +202,14 @@ int main()
 
                 // funciona como chave primaria, um identificador
                 produtos[i].id = i;
+                system("cls");
             }
             break;
 
         // * REMOVER PRODUTOS
         case 2:
+            system("cls");
+            system("COLOR 04");
             // listar os produtos
             printf("\nListagem dos produtos: \n\n");
 
@@ -229,7 +219,6 @@ int main()
             }
 
             printf("\nDigite o ID do produto que deseja remover: ");
-            scanf("%d", &remover);
 
             while (remover > num_produtos || remover < 0 || scanf("%d", &remover) != 1)
             {
@@ -241,16 +230,17 @@ int main()
 
         // * ALTERAR PRODUTOS
         case 3:
+            system("cls");
+            system("COLOR 06");
             // listar os produtos
             printf("\nListagem dos produtos: \n\n");
 
             for (int i = 0; i < num_produtos; i++)
             {
-                printf("\n>ID: %d \n- Nome: %s \n- Valor de venda: %f \n- Número de vendas: %d \n- Quantia no estoque: %d", produtos[i].id, produtos[i].nome, produtos[i].valor_venda, produtos[i].numero_vendas, produtos[i].quantidade_estoque);
+                printf("\n>ID: %d \n\n- Nome: %s \n- Valor de venda: %f \n- Número de vendas: %d \n- Quantia no estoque: %d\n\n", produtos[i].id, produtos[i].nome, produtos[i].valor_venda, produtos[i].numero_vendas, produtos[i].quantidade_estoque);
             }
 
-            printf("\nDigite o ID do produto que deseja alterar: ");
-            scanf("%d", &alterar);
+            printf("\n > Digite o ID do produto que deseja alterar: ");
 
             while (alterar > num_produtos || alterar < 0 || scanf("%d", &alterar) != 1)
             {
@@ -259,77 +249,76 @@ int main()
             }
 
             // printar o produto selecionado:
-            printf("\n>ID: %d \n- Nome: %s \n- Valor de venda: %f \n- Número de vendas: %d \n- Quantia no estoque: %d", produtos[alterar].id, produtos[alterar].nome, produtos[alterar].valor_venda, produtos[alterar].numero_vendas, produtos[alterar].quantidade_estoque);
+            printf("\n\n>ID: %d \n- Nome: %s \n- Valor de venda: %f \n- Número de vendas: %d \n- Quantia no estoque: %d", produtos[alterar].id, produtos[alterar].nome, produtos[alterar].valor_venda, produtos[alterar].numero_vendas, produtos[alterar].quantidade_estoque);
 
             printf("\nO que deseja alterar do produto selecionado: ");
-            printf("\n1 - Nome: ");
-            printf("\n2 - Valor de venda: ");
-            printf("\n3 - Número de vendas: ");
-            printf("\n4- Quantia no estoque: ");
+            printf("\n\n1 - Nome ");
+            printf("\n2 - Valor de venda ");
+            printf("\n3 - Número de vendas:");
+            printf("\n4 - Quantia no estoque ");
             printf("\n0 - Sair");
 
-            printf("\nDigite uma das opções: ");
-            scanf("%d", &opalt);
+            printf("\n\n > Digite uma das opções: ");
 
             while (scanf("%d", &opalt) != 1)
             {
                 printf("\nDigite uma opção válida...");
 
-                printf("\nDigite uma das opções: ");
+                printf("\n > Digite uma das opções: ");
                 scanf("%d", &opalt);
             }
 
-            printf("\nDigite o novo valor: ");
+            printf("\n > Digite o novo valor: ");
             switch (opalt)
             {
             // * NOME
             case 1:
-                char novo_nome[50];
+
                 scanf(" %[^\n]", produtos[alterar].nome);
 
                 break;
 
             // * VALOR VENDA
             case 2:
-                float novo_valor;
-                scanf("%f", produtos[alterar].valor_venda);
+
+                scanf("%f", &produtos[alterar].valor_venda);
 
                 while (scanf("%f", &produtos[alterar].valor_venda) != 1)
                 {
                     printf("\nDigite um valor válido...");
 
-                    printf("\nDigite o novo valor: ");
-                    scanf("%f", produtos[alterar].valor_venda);
+                    printf("\n > Digite o novo valor: ");
+                    scanf("%f", &produtos[alterar].valor_venda);
                 }
 
                 break;
 
             // * NÚMERO VENDA
             case 3:
-                int num_venda;
-                scanf("%d", produtos[alterar].numero_vendas);
+
+                scanf("%d", &produtos[alterar].numero_vendas);
 
                 while (scanf("%d", &produtos[alterar].numero_vendas) != 1)
                 {
                     printf("\nDigite um valor válido...");
 
-                    printf("\nDigite o novo valor: ");
-                    scanf("%d", produtos[alterar].numero_vendas);
+                    printf("\n > Digite o novo valor: ");
+                    scanf("%d", &produtos[alterar].numero_vendas);
                 }
 
                 break;
 
             //  * QUANTIA ESTOQUE
             case 4:
-                int nova_qnt;
-                scanf("%d", produtos[alterar].quantidade_estoque);
+
+                scanf("%d", &produtos[alterar].quantidade_estoque);
 
                 while (scanf("%d", &produtos[alterar].quantidade_estoque) != 1)
                 {
                     printf("\nDigite um valor válido...");
 
-                    printf("\nDigite o novo valor: ");
-                    scanf("%d", produtos[alterar].quantidade_estoque);
+                    printf("\n > Digite o novo valor: ");
+                    scanf("%d", &produtos[alterar].quantidade_estoque);
                 }
 
                 break;
@@ -341,6 +330,9 @@ int main()
 
             default:
                 printf("\nPor favor, digite uma opção válida...");
+                printf("\n");
+                Beep(0, 1000);
+                system("cls");
                 break;
             }
 
@@ -354,6 +346,8 @@ int main()
 
         // * CONSULTA ESTOQUE
         case 4:
+            system("cls");
+            system("COLOR 05");
             // bubble sort para as quantias de estoque
             while (j != 0)
             {
@@ -402,11 +396,14 @@ int main()
             printf("0. Sair");
 
             printf("\n\nDigite a opção abaixo: ");
-            scanf("%d", &ope);
 
             while (scanf("%d", &ope) != 1)
             {
                 printf("\nDigite uma opção existente...");
+
+                printf("\n");
+                system("pause");
+                system("cls");
 
                 printf("\n\nDigite a opção abaixo: ");
                 scanf("%d", &ope);
@@ -421,62 +418,65 @@ int main()
 
             // * MOSTRA TODOS DO ESTOQUE
             case 1:
-                printf("\n\n>Maior quantidade: ");
+                printf("\n\n----> Maior quantidade: ");
                 for (j = 0; j < num_produtos; j++)
                 {
-                    printf("\n> %dº ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[num_produtos - 1 - j].nome, produtos[num_produtos - 1 - j].quantidade_estoque);
+                    printf("\n > %do -  ID: %d  %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[num_produtos - 1 - j].nome, produtos[num_produtos - 1 - j].quantidade_estoque);
                 }
-                printf("\n\n>Menor quantidade:");
+                printf("\n\n----> Menor quantidade:");
                 for (j = 0; j < num_produtos; j++)
                 {
-                    printf("\n> %dº ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[j].nome, produtos[j].quantidade_estoque);
+                    printf("\n > %do - ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[j].nome, produtos[j].quantidade_estoque);
                 }
-
+                printf("\n");
+                system("pause");
                 break;
 
             // * MOSTRA O TOP 3
             case 2:
-                printf("\n\n>Maior quantidade:");
+                printf("\n\n----> Maior quantidade:");
                 for (j = 0; j < 3; j++)
                 {
-                    printf("\n> %dº ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[num_produtos - 1 - j].nome, produtos[num_produtos - 1 - j].quantidade_estoque);
+                    printf("\n> %do - ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[num_produtos - 1 - j].nome, produtos[num_produtos - 1 - j].quantidade_estoque);
                 }
-                printf("\n\n>Menor quantidade:");
+                printf("\n\n----> Menor quantidade:");
                 for (j = 0; j < 3; j++)
                 {
-                    printf("\n> %dº ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[j].nome, produtos[j].quantidade_estoque);
+                    printf("\n > %do -  ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[j].nome, produtos[j].quantidade_estoque);
                 }
-
+                printf("\n");
+                system("pause");
                 break;
 
             // * MOSTRA O TOP 5
             case 3:
-                printf("\n\n>Maior quantidade:");
+                printf("\n\n----> Maior quantidade:");
                 for (j = 0; j < 5; j++)
                 {
-                    printf("\n> %dº ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[num_produtos - 1 - j].nome, produtos[num_produtos - 1 - j].quantidade_estoque);
+                    printf("\n > %do - ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[num_produtos - 1 - j].nome, produtos[num_produtos - 1 - j].quantidade_estoque);
                 }
-                printf("\n\n>Menor quantidade:");
+                printf("\n\n----> Menor quantidade:");
                 for (j = 0; j < 5; j++)
                 {
-                    printf("\n> %dº ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[j].nome, produtos[j].quantidade_estoque);
+                    printf("\n > %do - ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[j].nome, produtos[j].quantidade_estoque);
                 }
-
+                printf("\n");
+                system("pause");
                 break;
 
             // * MOSTRA O TOP 10
             case 4:
-                printf("\n\n>Maior quantidade:");
+                printf("\n\n----> Maior quantidade:");
                 for (j = 0; j < 10; j++)
                 {
-                    printf("\n> %dº ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[num_produtos - 1 - j].nome, produtos[num_produtos - 1 - j].quantidade_estoque);
+                    printf("\n > %do - ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[num_produtos - 1 - j].nome, produtos[num_produtos - 1 - j].quantidade_estoque);
                 }
-                printf("\n\n>Menor quantidade:");
+                printf("\n\n----> Menor quantidade:");
                 for (j = 0; j < 10; j++)
                 {
-                    printf("\n> %dº ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[j].nome, produtos[j].quantidade_estoque);
+                    printf("\n> %do - ID: %d - %s: %d em estoque;\n", j + 1, produtos[j].id, produtos[j].nome, produtos[j].quantidade_estoque);
                 }
-
+                system("pause");
                 break;
 
             // * VOLTA AO MENU PRINCIPAL
@@ -486,6 +486,7 @@ int main()
 
             default:
                 printf("\nDigite uma opção válida, por favor.\n\n");
+                Beep(0, 1500);
                 break;
             }
 
@@ -499,6 +500,8 @@ int main()
 
         // * CONSULTA LUCRO
         case 5:
+            system("cls");
+            system("COLOR 01");
             // calculo de lucro:
             for (int i = 0; i < num_produtos; i++)
             {
@@ -545,19 +548,23 @@ int main()
             printf("\n\nO menor lucro foi o produto: %s", produto_menor_lucro.nome);
             printf("\nLucro total de: %.2f", menor_lucro);
 
-            printf("\n\nProdutos ordenados por lucro: ");
+            printf("\n\n----> Produtos ordenados por lucro: ");
             for (int i = 0; i < 3; i++)
             {
                 // armazena o calculo de lucro para legibilidade
                 float produto_lucro = (produtos[i].valor_venda - produtos[i].valor_compra) * produtos[i].numero_vendas;
 
                 // mostra a posição, depois o nome do produto e o lucro
-                printf("\n>%dº: \n- Nome: %s\n- Lucro: %.2f", i + 1, produtos[i].nome, produto_lucro);
+                printf("\n>%do: \n- Nome: %s\n- Lucro: %.2f", i + 1, produtos[i].nome, produto_lucro);
             }
+            system("pause");
             break;
 
         // * CONSULTA VENDA
         case 6:
+            system("cls");
+            system("COLOR 0B");
+
             // calculo de vendas:
             for (int i = 0; i < num_produtos; i++)
             {
@@ -586,17 +593,19 @@ int main()
             printf("\n\nProduto com menor número de vendas: %s", produto_menor_vendas.nome);
             printf("\nNúmero de produtos: %d", menor_vendas);
 
-            printf("\n\nProdutos ordenados por venda: ");
+            printf("\n\n----> Produtos ordenados por venda: ");
             for (int i = 0; i < 3; i++)
             {
                 // mostra a posição, depois o nome do produto e o lucro
-                printf("\n>%dº: \n- Nome: %s\n- Quantia de vendas: %d", i + 1, produtos[i].nome, produtos[i].numero_vendas);
+                printf("\n > %do: \n- Nome: %s\n- Quantia de vendas: %d", i + 1, produtos[i].nome, produtos[i].numero_vendas);
             }
+            system("pause");
             break;
 
         // * OPÇÃO NÃO ENCONTRADA
         default:
             printf("\nDigite uma opção válida, por favor.\n\n");
+            Beep(0, 1500);
             break;
         }
     }
